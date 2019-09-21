@@ -17,7 +17,9 @@ function onReactionAdd(client, reaction, user) {
   var channel = message.channel;
   var member = guild.member(user);
   if(!member) return;
-  var emoji = reaction.emoji
+  var emoji = reaction.emoji;
+  var filteredWings = wings.filter(obj => obj.GUILD == guild);
+  var filteredWingFindMessages = wingFindMessages.filter(obj => obj.GUILD == guild);
   checkUserPerm(guild, channel, member, "member", validated => {
     if(wingEmojisArr.includes(emoji.name)) {
       // Checks user is validated
@@ -25,7 +27,7 @@ function onReactionAdd(client, reaction, user) {
         user.send("You do not have permission to do that.");
       } else {
         // Checks message is relevant
-        var wing = wings.find(obj => obj.MESSAGE.MESSAGES.includes(message));
+        var wing = filteredWings.find(obj => obj.MESSAGE.MESSAGES.includes(message));
         if(wing) {
           // Checks wing is open
           if(!wing.STATUS) {
@@ -37,7 +39,7 @@ function onReactionAdd(client, reaction, user) {
               } else if(wing.MEMBERS.length >= 4) { // Checks if wing is full
                 user.send("Sorry, that wing is full");
               } else {
-                removeFromCurrWing(user);
+                removeFromCurrWing(user, guild);
                 wing.addMember(user);
               }
             } else if(emoji.name == "❌") { // Emoji check
@@ -52,10 +54,10 @@ function onReactionAdd(client, reaction, user) {
       }
     } if(wingMsgEmojisArr.includes(emoji.name) || emoji.name == "✅") {
       // Checks message is relevant
-      var wingFindMessage = wingFindMessages.find(obj => obj.MESSAGE == message);
+      var wingFindMessage = filteredWingFindMessages.find(obj => obj.MESSAGE == message);
       if(wingFindMessage) {
         // Checks message is relevant to user
-        wingFindMessage = wingFindMessages.find(obj => obj.USER == user);
+        wingFindMessage = filteredWingFindMessages.find(obj => obj.USER == user);
         if(!wingFindMessage) {
           user.send("That isn't your message.\nTo find a wing of your own, use ' " + prefix + "wing find '.");
         } else {

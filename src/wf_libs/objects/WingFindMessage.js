@@ -12,7 +12,8 @@ const wingFindTimeout = config.discord.timeouts.wingFind;
 const GuildData = require("../../models/guild_data.js");
 
 class WingFindMessage {
-  constructor(user, channel, override) {
+  constructor(user, channel, guild, override) {
+    this.GUILD = guild;
     this.USER = user;
     this.CHANNEL = channel;
     this.MESSAGE = null;
@@ -50,6 +51,7 @@ class WingFindMessage {
     this.MESSAGE.edit(wingFindStr);
   }
   close() {
+    var guild = this.GUILD;
     var user = this.USER;
     var channel = this.CHANNEL;
     var message = this.MESSAGE;
@@ -67,9 +69,9 @@ class WingFindMessage {
         } else {
           var selected = wingMsgEmojisObj.filter(obj => emojis.includes(obj.emoji));
           if(override) {
-            new Wing(channel, user, selected);
+            new Wing(channel, user, guild, selected);
           } else {
-            matchUser(channel, user, selected);
+            matchUser(channel, user, guild, selected);
           }
         }
       }).catch(err => {

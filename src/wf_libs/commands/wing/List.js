@@ -15,9 +15,10 @@ class List {
     if(args.length > 0) this.INVALID_USAGE = true;
   }
   exec(msg) {
+    var guild = msg.guild;
     var channel = msg.channel;
 
-    printWings(channel);
+    printWings(channel, guild);
   }
 }
 

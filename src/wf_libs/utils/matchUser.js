@@ -2,8 +2,9 @@
 const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 const Wing = require("../objects/Wing.js");
 
-function matchUser(channel, user, selected) {
-  var matchingWings = matchWings(selected, user);
+function matchUser(channel, user, guild, selected) {
+  var filteredWings = wings.filter(obj => obj.GUILD == guild);
+  var matchingWings = matchWings(filteredWings, selected, user);
   var bestMatchWing = bestMatch(matchingWings);
 
   removeFromCurrWing(user);
@@ -22,11 +23,11 @@ function matchUser(channel, user, selected) {
 
 }
 
-function matchWings(selected, user) {
+function matchWings(filteredWings, selected, user) {
   var matchingWings = [];
 
-  for(var i in wings) {
-    var wing = wings[i];
+  for(var i in filteredWings) {
+    var wing = filteredWings[i];
     // Checks wing is open && checks wing has less than 4 members && checks user isn't in wing
     if(wing.STATUS && wing.MEMBERS.length < 4 && !wing.MEMBERS.includes(user)) {
       var activities = wing.ACTIVITIES;

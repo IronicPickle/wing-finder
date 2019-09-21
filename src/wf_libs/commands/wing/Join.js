@@ -16,9 +16,11 @@ class Join {
     if(args.length != 1) this.INVALID_USAGE = true;
   }
   exec(msg) {
+    var guild = msg.guild;
     var user = msg.author;
     var wingID = this.ARGS[0];
-    var wing = wings.find(obj => obj.ID == wingID);
+    var filteredWings = wings.filter(obj => obj.GUILD == guild);
+    var wing = filteredWings.find(obj => obj.ID == wingID);
     if(!wing) {
       msg.reply("No wing exists with that ID.");
     } else {
@@ -29,7 +31,7 @@ class Join {
       } else if(wing.MEMBERS.length >= 4) { // Checks if wing is full
         msg.reply("Sorry, that wing is full");
       } else {
-        removeFromCurrWing(user);
+        removeFromCurrWing(user, guild);
         wing.addMember(user);
         msg.reply("Joined ' " + wingID + " '");
         wing.MESSAGE.create();

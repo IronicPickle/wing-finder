@@ -1,5 +1,3 @@
-// Libs
-const removeFromCurrWing = require("../../utils/removeFromCurrWing.js");
 // Vars
 const config = require("../../../config/global.json");
 const prefix = config.discord.commands.prefix;
@@ -16,9 +14,11 @@ class Leave {
     if(args.length != 1) this.INVALID_USAGE = true;
   }
   exec(msg) {
+    var guild = msg.guild;
     var user = msg.author;
     var wingID = this.ARGS[0];
-    var wing = wings.find(obj => obj.ID == wingID);
+    var filteredWings = wings.filter(obj => obj.GUILD == guild);
+    var wing = filteredWings.find(obj => obj.ID == wingID);
     if(!wing) {
       msg.reply("No wing exists with that ID.");
     } else {

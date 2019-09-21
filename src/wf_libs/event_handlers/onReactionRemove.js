@@ -15,14 +15,15 @@ function onReactionRemove(client, reaction, user) {
   var channel = message.channel;
   var member = guild.member(user);
   if(!member) return;
-  var emoji = reaction.emoji
+  var emoji = reaction.emoji;
+  var filteredWingFindMessages = wingFindMessages.filter(obj => obj.GUILD == guild);
   checkUserPerm(guild, channel, member, "member", validated => {
     if(wingMsgEmojisArr.includes(emoji.name)) {
       // Checks message is relevant
-      var wingFindMessage = wingFindMessages.find(obj => obj.MESSAGE == message);
+      var wingFindMessage = filteredWingFindMessages.find(obj => obj.MESSAGE == message);
       if(wingFindMessage) {
         // Checks message is relevant to user
-        wingFindMessage = wingFindMessages.find(obj => obj.USER == user);
+        wingFindMessage = filteredWingFindMessages.find(obj => obj.USER == user);
         if(!wingFindMessage) {
           user.send("That isn't your message.\nTo find a wing of your own, use ' " + prefix + "wing find '.");
         } else {
