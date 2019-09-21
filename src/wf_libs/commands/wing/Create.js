@@ -1,0 +1,24 @@
+// Libs
+const WingFindMessage = require("../../objects/WingFindMessage.js");
+// Vars
+const config = require("../../../config/global.json");
+const prefix = config.discord.commands.prefix;
+
+class Create {
+  constructor(args) {
+    this.COMMAND = "wing create";
+    this.USAGE = prefix + this.COMMAND;
+    this.HELP = "Creates a wing.";
+    this.IS_SUB = false;
+    this.REQUIRED_GROUP = "officer";
+    this.RESTRICT_CHANNEL = true;
+    if(args.length > 0) this.INVALID_USAGE = true;
+  }
+  exec(msg) {
+    var channel = msg.channel;
+    var user = msg.author;
+    new WingFindMessage(user, channel, true);
+  }
+}
+
+module.exports = Create;

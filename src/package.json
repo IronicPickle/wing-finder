@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "IronicPickle",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "discord.js": "^11.5.1",
+    "discord.js-commando": "^0.10.0",
+    "erlpack": "github:hammerandchisel/erlpack",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  }
 }
