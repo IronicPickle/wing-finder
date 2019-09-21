@@ -40,6 +40,7 @@ const prefix = config.discord.commands.prefix; // config var
 // Global vars
 wings = [];
 wingFindMessages = [];
+confirmReset = false;
 
 WingFinder.registerCommands(registered => {
 

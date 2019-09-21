@@ -26,6 +26,6 @@ var guildDataSchema = mongoose.Schema({
     require: true,
     default: config.perms
   }
-}, {collection: "guild_data"});
+}, {_id: false, collection: "guild_data"});
 
 var GuildData = module.exports = mongoose.model("GuildData", guildDataSchema);

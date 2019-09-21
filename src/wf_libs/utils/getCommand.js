@@ -23,10 +23,12 @@ function getCommand(input, callback, msg) {
       callback(commandClass, "Invalid usage.");
       return;
     } else if(msg) {
-      checkChannelPerm(msg.guild, msg.channel, (validated, activeChannel, unbound) => {
-        if(!validated && commandClass.RESTRICT_CHANNEL) {
+      checkChannelPerm(msg.guild, msg.channel, (validated, activeChannel, unbound, claimed) => {
+        if(!claimed && command != "claim" && command != "status") {
+          callback(null, "This bot has not been claimed, use ' " + prefix + "claim ' to claim it.");
+        } else if(!validated && commandClass.RESTRICT_CHANNEL) {
           if(unbound) {
-            callback(null, "A command channel has not been bound.\nUse ' wf!admin bind-channel ' to bind a channel.");
+            callback(null, "A command channel has not been bound.\nUse ' " + prefix + "admin bind-channel ' to bind a channel.");
           } else {
             callback(null, "You can only use commands in <#" + activeChannel + ">.");
           }

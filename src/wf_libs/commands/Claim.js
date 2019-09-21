@@ -37,7 +37,7 @@ class Claim {
       data.perms.admin.users.push(author.id);
 
       GuildData.updateOne({guildID: guild.id}, {perms: data.perms, claimed: true}).exec().then(() => {
-        msg.reply("You have claimed this bot.\nAll admin commands have been bound to your user.\nUse wf!admin bind-channel in the channel you want the bot to use.");
+        msg.reply("You have claimed this bot.\nAll admin commands have been bound to your user.\nUse ' " + prefix + "admin bind-channel ' in the channel you want the bot to use.");
       }).catch(err => {
         console.log(err);
         msg.channel.send("An internal error has occurred.");

@@ -9,10 +9,11 @@ function checkChannelPerm(guild, channel, callback) {
     if(!data) throw new Error("No data returned!");
     var activeChannel = data.activeChannel;
     var recievedChannel = channel.id;
-
     if(!activeChannel) var unbound = true;
 
-    callback((activeChannel == recievedChannel), activeChannel, unbound);
+    var claimed = data.claimed;
+
+    callback((activeChannel == recievedChannel), activeChannel, unbound, claimed);
     return;
   }).catch(err => {
     channel.send("An internal error has occurred.");

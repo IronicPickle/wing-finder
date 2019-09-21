@@ -22,7 +22,9 @@ class Leave {
     if(!wing) {
       msg.reply("No wing exists with that ID.");
     } else {
-      if(!wing.MEMBERS.includes(user)) { // Checks the user is in wing
+      if(!wing.STATUS) { // Checks if wing is closed
+        msg.reply("Sorry, that wing is closed.");
+      } else if(!wing.MEMBERS.includes(user)) { // Checks the user is in wing
         msg.reply("You're not a member of that wing.");
       } else {
         wing.removeMember(user);
