@@ -6,6 +6,8 @@ const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 const vars = require("../vars.js");
 const wingMsgEmojisArr = vars.wingMsgEmojisArr;
 const wingEmojisArr = vars.wingEmojisArr;
+const config = require("../../config/global.json");
+const prefix = config.discord.commands.prefix;
 
 function onReactionAdd(client, reaction, user) {
   var botUser = client.user;
@@ -55,7 +57,7 @@ function onReactionAdd(client, reaction, user) {
         // Checks message is relevant to user
         wingFindMessage = wingFindMessages.find(obj => obj.USER == user);
         if(!wingFindMessage) {
-          user.send("That isn't your message.\nTo find a wing of your own, use ' wf!wing find '.");
+          user.send("That isn't your message.\nTo find a wing of your own, use ' " + prefix + "wing find '.");
         } else {
           if(emoji.name == "✅") { // Emoji check
             wingFindMessage.close();

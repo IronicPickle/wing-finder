@@ -11,7 +11,7 @@ class Status {
     this.HELP = "Displays the current status of the bot.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = null;
-    this.RESTRICT_CHANNEL = true;
+    this.RESTRICT_CHANNEL = false;
     if(args.length > 0) this.INVALID_USAGE = true;
   }
   exec(msg) {
@@ -24,9 +24,9 @@ class Status {
           activeChannel = data.activeChannel;
 
       var claimedString = "Claimed",
-          unclaimedString = "Unclaimed - Use wf!claim to claim this bot";
+          unclaimedString = "Unclaimed - Use ' " + prefix + "claim ' to claim this bot";
       if(perms.admin.users.length <= 0 && perms.admin.groups.length <= 0) {
-        claimedString +=  " (Needs Re-claiming - Use wf!claim to re-claim this bot.)";
+        claimedString +=  " (Needs Re-claiming - Use ' " + prefix + "claim ' to re-claim this bot.)";
       }
 
       if(!activeChannel) {

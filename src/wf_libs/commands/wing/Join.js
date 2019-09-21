@@ -22,7 +22,9 @@ class Join {
     if(!wing) {
       msg.reply("No wing exists with that ID.");
     } else {
-      if(wing.MEMBERS.includes(user)) { // Checks if user is in wing
+      if(!wing.STATUS) { // Checks if wing is closed
+        msg.reply("Sorry, that wing is closed.");
+      } else if(wing.MEMBERS.includes(user)) { // Checks if user is in wing
         msg.reply("You're already a member of that wing.");
       } else if(wing.MEMBERS.length >= 4) { // Checks if wing is full
         msg.reply("Sorry, that wing is full");
