@@ -17,7 +17,8 @@ class Create {
   exec(msg) {
     var channel = msg.channel;
     var user = msg.author;
-    new WingFindMessage(user, channel, false);
+    var guild = msg.guild;
+    new WingFindMessage(user, channel, guild, false);
   }
 }
 

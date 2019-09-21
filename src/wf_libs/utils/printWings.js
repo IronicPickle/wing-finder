@@ -2,10 +2,11 @@
 const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
-function printWings(channel) {
+function printWings(channel, guild) {
+  var filteredWings = wings.filter(obj => obj.GUILD == guild);
   var wingsStr = "**Available Wings:**\n";
-  for(var i in wings) {
-    var wing = wings[i];
+  for(var i in filteredWings) {
+    var wing = filteredWings[i];
     if(wing.STATUS) {
       wingsStr += "> **Wing ID: [" + wing.ID + "]**\n";
       wingsStr += "> Members: "
@@ -24,7 +25,7 @@ function printWings(channel) {
       wingsStr += "\n";
     }
   }
-  var openWings = wings.filter(obj => obj.STATUS);
+  var openWings = filteredWings.filter(obj => obj.STATUS);
   if(openWings.length > 0) {
     wingsStr += "Use ' " + prefix + "wing join [wing id] ' to join a specific wing."
   } else {
