@@ -1,3 +1,5 @@
+// Libs
+const Discord = require("discord.js");
 // Vars
 const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
@@ -19,8 +21,10 @@ class Claim {
     var userPerms = member.permissions;
     var guild = msg.guild;
     var author = msg.author;
+    var channel = msg.channel;
 
-    var hasAdminPerm = userPerms.hasPermissions("ADMINISTRATOR");
+    var permissions = member.permissionsIn(channel);
+    var hasAdminPerm = permissions.has("ADMINISTRATOR");
     if(!hasAdminPerm) {
       msg.reply("You must have the ' ADMINISTRATOR ' permission to use this command.");
       return;

@@ -20,8 +20,10 @@ class Claim {
     var member = msg.member;
     var userPerms = member.permissions;
     var guild = msg.guild;
+    var channel = msg.channel;
 
-    var hasAdminPerm = userPerms.hasPermissions("ADMINISTRATOR");
+    var permissions = member.permissionsIn(channel);
+    var hasAdminPerm = permissions.has("ADMINISTRATOR");
     if(!hasAdminPerm) {
       msg.reply("You must have the ' ADMINISTRATOR ' permission to use this command.");
       return;
