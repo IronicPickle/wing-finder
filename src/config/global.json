@@ -1,0 +1,30 @@
+{
+  "main": {
+    "port": 8080
+  },
+  "database": {
+    "details": {
+      "database": "mongodb://localhost/wfDB",
+      "secret": "$2y$12$5rhVnTtTYM0eSpr9yAT5uuv6YJFF.mNXvb32yFOr3OMruAuSOzSwq"
+    }
+  },
+  "discord": {
+    "commands": {
+      "prefix": "wf!"
+    },
+    "timeouts": {
+      "wing": 10,
+      "wingFind": 1
+    },
+    "defaults": {
+      "claimed": false,
+      "activeChannel": null,
+      "wingTimeout": 5000,
+      "perms": {
+        "admin": {"users": [], "groups": []},
+        "officer": {"users": [], "groups": []},
+        "member": {"users": [], "groups": []}
+      }
+    }
+  }
+}
