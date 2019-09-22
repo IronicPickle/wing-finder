@@ -2,6 +2,7 @@
 const Wing = require("../objects/Wing.js");
 const generateFindWingMessage = require("../utils/generateFindWingMessage.js");
 const matchUser = require("../utils/matchUser.js");
+const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 // Vars
 const vars = require("../vars.js");
 const wingMsgEmojisArr = vars.wingMsgEmojisArr;
@@ -69,6 +70,7 @@ class WingFindMessage {
         } else {
           var selected = wingMsgEmojisObj.filter(obj => emojis.includes(obj.emoji));
           if(override) {
+            removeFromCurrWing(user, guild);
             new Wing(channel, user, guild, selected);
           } else {
             matchUser(channel, user, guild, selected);
