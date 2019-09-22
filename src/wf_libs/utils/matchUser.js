@@ -7,7 +7,7 @@ function matchUser(channel, user, guild, selected) {
   var matchingWings = matchWings(filteredWings, selected, user);
   var bestMatchWing = bestMatch(matchingWings);
 
-  removeFromCurrWing(user);
+  removeFromCurrWing(user, guild);
 
   if(bestMatchWing) {
     var wing = wings.find(obj => obj.ID == bestMatchWing.wingID);
@@ -18,7 +18,7 @@ function matchUser(channel, user, guild, selected) {
     }
   } else {
     channel.send("<@" + user.id + ">, We couldn't find a wing for you, so we created one instead.");
-    new Wing(channel, user, selected);
+    new Wing(channel, user, guild, selected);
   }
 
 }
