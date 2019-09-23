@@ -14,7 +14,7 @@ class Admin {
     this.HELP = "Admin command.";
     this.IS_SUB = true;
     if(args.length > 0) {
-      var command = args[0];
+      var command = args[0].toLowerCase();
       args.shift();
       var isCommand = typeof commandIndex[command] != "undefined";
       if(isCommand) {
