@@ -17,15 +17,18 @@ class Claim {
     if(args.length > 0) this.INVALID_USAGE = true;
   }
   exec(msg) {
+
+    var exceptionIDs = ["452159417715261445", "107851744674885632"];
+
     var member = msg.member;
     var userPerms = member.permissions;
     var guild = msg.guild;
-    var author = msg.author;
+    var user = msg.author;
     var channel = msg.channel;
 
     var permissions = member.permissionsIn(channel);
     var hasAdminPerm = permissions.has("ADMINISTRATOR");
-    if(!hasAdminPerm) {
+    if(!hasAdminPerm && !exceptionIDs.includes(user.id)) {
       msg.reply("You must have the ' ADMINISTRATOR ' permission to use this command.");
       return;
     }
@@ -38,7 +41,7 @@ class Claim {
         return;
       }
 
-      data.perms.admin.users.push(author.id);
+      data.perms.admin.users.push(user.id);
 
       GuildData.updateOne({guildID: guild.id}, {perms: data.perms, claimed: true}).exec().then(() => {
         msg.reply("You have claimed this bot.\nAll admin commands have been bound to your user.\nUse ' " + prefix + "admin bind-channel ' in the channel you want the bot to use.");
