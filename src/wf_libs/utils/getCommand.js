@@ -7,13 +7,12 @@ const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 function getCommand(input, callback, msg) {
-  input = input.toLowerCase();
   var isValid = input.startsWith(prefix);
 
   if(isValid) {
     var withoutPrefix = input.slice(prefix.length);
     var args = withoutPrefix.split(" ");
-    var command = args[0];
+    var command = args[0].toLowerCase();
     args.shift()
     var isCommand = typeof commandIndex[command] != "undefined";
     if(isCommand) var commandClass = new commandIndex[command](args);
