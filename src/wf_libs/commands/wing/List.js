@@ -8,7 +8,7 @@ class List {
   constructor(args) {
     this.COMMAND = "wing list";
     this.USAGE = prefix + this.COMMAND;
-    this.HELP = "Lists all available wings.";
+    this.HELP = "Displays a list of all available wings.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;

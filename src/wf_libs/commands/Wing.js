@@ -11,7 +11,7 @@ class Wing {
   constructor(args) {
     this.COMMAND = "wing";
     this.USAGE = prefix + this.COMMAND + " [sub-command]";
-    this.HELP = "Wing command.";
+    this.HELP = "Wing sub-command.";
     this.IS_SUB = true;
     if(args.length > 0) {
       var command = args[0].toLowerCase();

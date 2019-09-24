@@ -20,9 +20,8 @@ class Help {
     this.ARG = arg;
   }
   exec(msg) {
-    var channel = msg.channel;
     var arg = this.ARG;
-    printHelp(channel, arg, );
+    printHelp(msg, arg);
   }
 }
 

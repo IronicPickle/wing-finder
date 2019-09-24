@@ -11,7 +11,7 @@ class Admin {
   constructor(args) {
     this.COMMAND = "admin";
     this.USAGE = prefix + this.COMMAND + " [sub-command]";
-    this.HELP = "Admin command.";
+    this.HELP = "Admin sub-command.";
     this.IS_SUB = true;
     if(args.length > 0) {
       var command = args[0].toLowerCase();
