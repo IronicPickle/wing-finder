@@ -7,7 +7,7 @@ const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 function getCommand(input, callback, msg) {
-  var isValid = input.startsWith(prefix);
+  var isValid = input.toLowerCase().startsWith(prefix);
 
   if(isValid) {
     var withoutPrefix = input.slice(prefix.length);
