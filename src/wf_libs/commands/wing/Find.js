@@ -8,7 +8,8 @@ class Create {
   constructor(args) {
     this.COMMAND = "wing find";
     this.USAGE = prefix + this.COMMAND;
-    this.HELP = "Finds a wing.";
+    this.HELP = "Attempts to find a wing matching your chosen activities.\n"+
+    ">                               If no wing is found, a wing will be created with you as the creator.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;

@@ -65,5 +65,5 @@ WingFinder.registerCommands(registered => {
   });
 
   // Client login
-  client.login("NjIyMjE1NjY5NTg4Njg4OTE3.XYEsHQ.owTmgY8xgNDmiLjFTYtn9XL6R7o");
+  client.login(config.discord.client.token);
 });

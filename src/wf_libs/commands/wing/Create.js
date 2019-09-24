@@ -8,7 +8,7 @@ class Create {
   constructor(args) {
     this.COMMAND = "wing create";
     this.USAGE = prefix + this.COMMAND;
-    this.HELP = "Creates a wing.";
+    this.HELP = "Forcibly creates a new wing.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "officer";
     this.RESTRICT_CHANNEL = true;
