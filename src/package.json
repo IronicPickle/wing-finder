@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.5",
+    "discord-rich-presence": "0.0.8",
     "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
     "erlpack": "github:hammerandchisel/erlpack",

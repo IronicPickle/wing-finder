@@ -66,4 +66,5 @@ WingFinder.registerCommands(registered => {
 
   // Client login
   client.login(config.discord.client.token);
+
 });
