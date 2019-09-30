@@ -6,6 +6,8 @@ const vars = require("../vars.js");
 const wingMsgEmojisArr = vars.wingMsgEmojisArr;
 const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
+// DB models
+const GuildData = require("../../models/guild_data.js");
 
 function onReactionRemove(client, reaction, user) {
   var botUser = client.user;
@@ -17,7 +19,9 @@ function onReactionRemove(client, reaction, user) {
   if(!member) return;
   var emoji = reaction.emoji;
   var filteredWingFindMessages = wingFindMessages.filter(obj => obj.GUILD == guild);
-  checkUserPerm(guild, channel, member, "member", validated => {
+  GuildData.findOne({guildID: guild.id}).exec().then(guildData => {
+    if(!guildData) throw new Error("No data returned!");
+    var validated = checkUserPerm(guildData, channel, member, "member");
     if(wingMsgEmojisArr.includes(emoji.name)) {
       // Checks message is relevant
       var wingFindMessage = filteredWingFindMessages.find(obj => obj.MESSAGE == message);
@@ -26,6 +30,8 @@ function onReactionRemove(client, reaction, user) {
         wingFindMessage = filteredWingFindMessages.find(obj => obj.USER == user);
         if(!wingFindMessage) {
           user.send("That isn't your message.\nTo find a wing of your own, use ' " + prefix + "wing find '.");
+        } else if(!validated) { // Checks user is validated
+          user.send("You do not have permission to do that.");
         } else {
           wingFindMessage.EMOJIS.splice(wingFindMessage.EMOJIS.indexOf(emoji.name), 1);
           var wingFindStr = generateFindWingMessage(user, wingFindMessage.EMOJIS);
@@ -33,6 +39,9 @@ function onReactionRemove(client, reaction, user) {
         }
       }
     }
+  }).catch(err => {
+    channel.send("An internal error has occurred.");
+    console.log(err);
   });
 }
 
