@@ -3,5 +3,7 @@ module.exports = {
   find: require("./Find.js"),
   list: require("./List.js"),
   join: require("./Join.js"),
-  leave: require("./Leave.js")
+  leave: require("./Leave.js"),
+  show: require("./Show.js"),
+  kick: require("./Kick.js")
 }

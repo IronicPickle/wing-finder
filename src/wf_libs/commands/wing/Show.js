@@ -2,11 +2,12 @@
 const config = require("../../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
-class Leave {
+class Show {
   constructor(args) {
-    this.COMMAND = "wing leave";
+    this.ARGS = args;
+    this.COMMAND = "wing show";
     this.USAGE = prefix + this.COMMAND;
-    this.HELP = "Leaves the wing you are currently in.";
+    this.HELP = "Displays the wing you are currently in.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;
@@ -23,10 +24,10 @@ class Leave {
       if(!wing.MEMBERS.includes(user)) { // Checks the user is in wing
         msg.reply("You're not a member of that wing.");
       } else {
-        wing.removeMember(user);
+        wing.MESSAGE.create();
       }
     }
   }
 }
 
-module.exports = Leave;
+module.exports = Show;
