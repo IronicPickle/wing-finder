@@ -21,7 +21,7 @@ class Wing {
 
     wings.push(this);
     this.pushUpdate();
-    setTimeout(() => {
+    this.TIMEOUT = setTimeout(() => {
       this.close();
     }, 1000 * 60 * wingTimeout);
   }
@@ -54,6 +54,7 @@ class Wing {
     this.MESSAGE.update();
   }
   close() {
+    clearTimeout(this.TIMEOUT);
     this.MEMBERS = [];
     wings.splice(wings.indexOf(this), 1);
     this.MESSAGE.deleteAll();
