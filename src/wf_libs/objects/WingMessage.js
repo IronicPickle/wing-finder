@@ -30,6 +30,12 @@ class WingMessage {
       messages[i].edit(wingStr);
     }
   }
+  deleteAll() {
+    var messages = this.MESSAGES;
+    for(var i in messages) {
+      messages[i].delete();
+    }
+  }
 }
 
 module.exports = WingMessage;

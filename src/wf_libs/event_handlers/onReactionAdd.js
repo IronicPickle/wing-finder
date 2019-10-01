@@ -31,8 +31,6 @@ function onReactionAdd(client, reaction, user) {
       if(wing) {
         if(!validated) { // Checks user is validated
           user.send("You do not have permission to do that.");
-        } else if(!wing.STATUS) { // Checks wing is open
-          user.send("That wing is closed.");
         } else {
           if(emoji.name == "✅") { // Emoji check
             if(wing.MEMBERS.includes(user)) { // Checks if user is in wing

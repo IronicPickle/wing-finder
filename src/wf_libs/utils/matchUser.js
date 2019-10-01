@@ -29,7 +29,7 @@ function matchWings(filteredWings, selected, user) {
   for(var i in filteredWings) {
     var wing = filteredWings[i];
     // Checks wing is open && checks wing has less than 4 members && checks user isn't in wing
-    if(wing.STATUS && wing.MEMBERS.length < 4 && !wing.MEMBERS.includes(user)) {
+    if(wing.MEMBERS.length < 4 && !wing.MEMBERS.includes(user)) {
       var activities = wing.ACTIVITIES;
       var matchingActivities = [];
       for(var ii in activities) {

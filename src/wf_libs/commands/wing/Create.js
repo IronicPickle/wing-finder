@@ -18,7 +18,16 @@ class Create {
     var channel = msg.channel;
     var user = msg.author;
     var guild = msg.guild;
-    new WingFindMessage(user, channel, guild, true);
+    var wingFindMessage = wingFindMessages.find(obj => obj.USER == user);
+    if(wingFindMessage) {
+      if(wingFindMessage.OVERRIDE) {
+        msg.reply("You're already creating a wing.");
+      } else {
+        msg.reply("You're already finding a wing.");
+      }
+    } else {
+      new WingFindMessage(user, channel, guild, true);
+    }
   }
 }
 
