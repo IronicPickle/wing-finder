@@ -32,16 +32,12 @@ class WingFindMessage {
     var wingFindStr = generateFindWingMessage(user, []);
     channel.send(wingFindStr).then(message => {
       this.MESSAGE = message;
-      var reacted = [];
-      for(var i in wingMsgEmojisArr) {
-        var emoji = wingMsgEmojisArr[i];
-        message.react(emoji).then(msgReaction => {
-          reacted.push(msgReaction.emoji.name);
-          if(reacted.sort().equals(wingMsgEmojisArr)) {
-            message.react("✅");
-          }
-        });
-      }
+      message.react("✅").then(() => {
+        for(var i in wingMsgEmojisArr) {
+          var emoji = wingMsgEmojisArr[i];
+          message.react(emoji);
+        }
+      })
     }).catch(err => {
       console.log(err);
       channel.send("An internal error has occurred.");
