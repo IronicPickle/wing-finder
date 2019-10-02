@@ -35,7 +35,7 @@ class WingFindMessage {
       message.react("✅").then(() => {
         for(var i in wingMsgEmojisArr) {
           var emoji = wingMsgEmojisArr[i];
-          message.react(emoji);
+          message.react(emoji).catch(() => {});
         }
       })
     }).catch(err => {
