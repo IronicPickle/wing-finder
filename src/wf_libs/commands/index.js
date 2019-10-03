@@ -4,5 +4,7 @@ module.exports = {
   claim: require("./Claim.js"),
   admin: require("./Admin.js"),
   wing: require("./Wing.js"),
-  reset: require("./Reset.js")
+  reset: require("./Reset.js"),
+  order: require("./Order.js"),
+  exterminate: require("./Exterminate.js")
 }

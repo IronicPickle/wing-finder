@@ -19,7 +19,7 @@ class BindChannel {
     var channel = msg.channel;
 
     GuildData.updateOne({guildID: guild.id}, {activeChannel: channel.id}).exec().then(() => {
-      channel.send("Bound <#" + channel.id + "> as the bot's active channel.");
+      channel.send("Bound " + channel + " as the bot's active channel.");
     }).catch(err => {
       console.log(err);
       channel.send("An internal error has occurred.");

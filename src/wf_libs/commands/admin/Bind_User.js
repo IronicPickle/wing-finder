@@ -19,7 +19,7 @@ class BindUser {
       this.INVALID_USAGE = true;
     }
   }
-  exec(msg) {
+  exec(msg, client) {
     var guild = msg.guild;
     var channel = msg.channel;
     var args = this.ARGS;
@@ -27,26 +27,26 @@ class BindUser {
       if(!data) throw new Error("No data returned!");
       var perms = data.perms
 
-      if(!args[0].match(/<@([0-9]){18}>/g)) {
+      var filteredMentions = msg.mentions.users.filter(obj => !obj.bot);
+      var user = filteredMentions.first();
+
+      if(!user) {
         msg.reply("Invalid user ID.");
         return;
       }
-      var userID = args[0].match(/([0-9]){18}/g)[0];
-      var guildMember = guild.member(userID);
-      if(!guildMember) {
-        msg.reply("Invalid user.");
+      if(!perms.hasOwnProperty(args[1])) {
+        msg.reply("Invalid group.");
         return;
       }
-      var user = guildMember.user;
-      if(perms[args[1]].users.includes(userID)) {
-        msg.reply("<@"+userID+"> is already bound to '"+args[1].toUpperCase()+"'.");
+      if(perms[args[1]].users.includes(user.id)) {
+        msg.reply(user + " is already bound to '"+args[1].toUpperCase()+"'.");
         return;
       }
-      perms[args[1]].users.push(userID);
+      perms[args[1]].users.push(user.id);
 
       GuildData.updateOne({guildID: guild.id}, {perms: perms}).exec().then(() => {
 
-        msg.reply("Bound <@"+userID+"> to permission set '"+args[1].toUpperCase()+"'.");
+        msg.reply("Bound " + user + " to permission set '"+args[1].toUpperCase()+"'.");
         printPerms(guild, channel);
 
       }).catch(err => {
