@@ -28,25 +28,26 @@ class BindGroup {
       var perms = data.perms
       var roles = guild.roles;
 
-      if(!args[0].match(/<@&([0-9]){18}>/g)) {
+      var mentions = msg.mentions.roles;
+      var role = mentions.first();
+
+      if(!role) {
         msg.reply("Invalid role ID.");
         return;
       }
-      var roleID = args[0].match(/([0-9]){18}/g)[0];
-      var role = roles.find(val => val.id === roleID)
-      if(!role) {
-        msg.reply("Invalid role.");
+      if(!perms.hasOwnProperty(args[1])) {
+        msg.reply("Invalid group.");
         return;
       }
-      if(perms[args[1]].groups.includes(roleID)) {
-        msg.reply("<@&"+roleID+"> is already bound to '"+args[1].toUpperCase()+"'.");
+      if(perms[args[1]].groups.includes(role.id)) {
+        msg.reply(role + " is already bound to '"+args[1].toUpperCase()+"'.");
         return;
       }
-      perms[args[1]].groups.push(roleID);
+      perms[args[1]].groups.push(role.id);
 
       GuildData.updateOne({guildID: guild.id}, {perms: perms}).exec().then(() => {
 
-        msg.reply("Bound <@&"+roleID+"> to permission set '"+args[1].toUpperCase()+"'.");
+        msg.reply("Bound " + role + " to permission set '"+args[1].toUpperCase()+"'.");
         printPerms(guild, channel);
 
       }).catch(err => {

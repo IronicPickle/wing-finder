@@ -41,7 +41,7 @@ function printPerms(msg, arg) {
             mainStr += "";
           }
         } else {
-          channel.send("<@" + member.id + ">, ' " + arg + " ' is not a command.");
+          channel.send(member + ", ' " + arg + " ' is not a command.");
           return;
         }
         msg.reply("I've sent you a PM with help info.");

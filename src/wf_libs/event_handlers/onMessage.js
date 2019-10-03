@@ -6,8 +6,13 @@ const prefix = config.discord.commands.prefix;
 
 function onMessage(client, msg) {
   var user = msg.author;
+  var guild = msg.guild;
   var botUser = client.user;
   if(user.id == botUser.id) return;
+  if(!guild) {
+    msg.reply("You cannot send direct messages to me.");
+    return;
+  }
   getCommand(msg.content, (command, err) => {
     if(err) {
       var res = err;
