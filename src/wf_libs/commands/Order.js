@@ -10,7 +10,7 @@ class Order {
     this.COMMAND = "order";
     this.USAGE = prefix + this.COMMAND + " [pizza-type]";
     this.HELP = "Orders a pizza to your door. Types of pizza:\n"+
-    ">                                                 __Pepperoni, Margarita, Meat Feast, Vegetarian & **semTex-Special**__";
+    "> __Pepperoni, Margarita, Meat Feast, Vegetarian & **semTex-Special**__";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = null;
     this.RESTRICT_CHANNEL = false;

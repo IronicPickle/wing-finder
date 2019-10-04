@@ -1,13 +1,13 @@
 // Libs
-const removeFromCurrWing = require("../../utils/removeFromCurrWing.js");
+const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 class Kick {
   constructor(args) {
     this.ARGS = args;
-    this.COMMAND = "wing kick";
+    this.COMMAND = "kick";
     this.USAGE = prefix + this.COMMAND + " [@user]";
     this.HELP = "Kicks a user from the wing your are currently in.";
     this.IS_SUB = false;

@@ -1,13 +1,13 @@
 // Libs
-const removeFromCurrWing = require("../../utils/removeFromCurrWing.js");
+const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 class Join {
   constructor(args) {
     this.ARGS = args;
-    this.COMMAND = "wing join";
+    this.COMMAND = "join";
     this.USAGE = prefix + this.COMMAND + " [wing id]";
     this.HELP = "Joins a specific wing by it's ID.";
     this.IS_SUB = false;
