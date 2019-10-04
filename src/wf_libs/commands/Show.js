@@ -1,12 +1,13 @@
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
-class Disband {
+class Show {
   constructor(args) {
-    this.COMMAND = "wing disband";
+    this.ARGS = args;
+    this.COMMAND = "show";
     this.USAGE = prefix + this.COMMAND;
-    this.HELP = "Disbands your current wing.";
+    this.HELP = "Displays the wing you are currently in.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;
@@ -15,17 +16,18 @@ class Disband {
   exec(msg) {
     var guild = msg.guild;
     var user = msg.author;
-
     var filteredWings = wings.filter(obj => obj.GUILD == guild);
     var wing = filteredWings.find(obj => obj.MEMBERS.includes(user));
     if(!wing) {
-      msg.reply("You're not a member of wing.");
-    } else if(wing.CREATOR != user) {
-      msg.reply("You're not the creator of your wing.");
+      msg.reply("You're not currently in a wing.");
     } else {
-      wing.close();
+      if(!wing.MEMBERS.includes(user)) { // Checks the user is in wing
+        msg.reply("You're not a member of that wing.");
+      } else {
+        wing.MESSAGE.create();
+      }
     }
   }
 }
 
-module.exports = Disband;
+module.exports = Show;

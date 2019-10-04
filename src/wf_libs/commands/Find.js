@@ -1,15 +1,15 @@
 // Libs
-const WingFindMessage = require("../../objects/WingFindMessage.js");
+const WingFindMessage = require("../objects/WingFindMessage.js");
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 class Create {
   constructor(args) {
-    this.COMMAND = "wing find";
+    this.COMMAND = "find";
     this.USAGE = prefix + this.COMMAND;
     this.HELP = "Attempts to find a wing matching your chosen activities.\n"+
-    ">                               If no wing is found, a wing will be created with you as the creator.";
+    "> If no wing is found, a wing will be created with you as the creator.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;

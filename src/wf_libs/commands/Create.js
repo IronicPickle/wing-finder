@@ -1,12 +1,12 @@
 // Libs
-const WingFindMessage = require("../../objects/WingFindMessage.js");
+const WingFindMessage = require("../objects/WingFindMessage.js");
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 class Create {
   constructor(args) {
-    this.COMMAND = "wing create";
+    this.COMMAND = "create";
     this.USAGE = prefix + this.COMMAND;
     this.HELP = "Forcibly creates a new wing.";
     this.IS_SUB = false;

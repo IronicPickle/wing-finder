@@ -1,12 +1,12 @@
 // Libs
-const printWings = require("../../utils/printWings.js");
+const printWings = require("../utils/printWings.js");
 // Vars
-const config = require("../../../config/global.json");
+const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
 
 class List {
   constructor(args) {
-    this.COMMAND = "wing list";
+    this.COMMAND = "list";
     this.USAGE = prefix + this.COMMAND;
     this.HELP = "Displays a list of all available wings.";
     this.IS_SUB = false;
