@@ -13,7 +13,7 @@ class Admin {
     this.HELP = "Returns the current permission configuration.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "admin";
-    this.RESTRICT_CHANNEL = true;
+    this.RESTRICT_CHANNEL = false;
     if(args.length > 0) this.INVALID_USAGE = true;
   }
   exec(msg) {
