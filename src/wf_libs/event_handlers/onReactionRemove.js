@@ -22,7 +22,7 @@ function onReactionRemove(client, reaction, user) {
   GuildData.findOne({guildID: guild.id}).exec().then(guildData => {
     if(!guildData) throw new Error("No data returned!");
     var validated = checkUserPerm(guildData, channel, member, "member");
-    if(wingMsgEmojisArr.includes(emoji.name)) {
+    if(wingMsgEmojisArr.includes(emoji.id)) {
       // Checks message is relevant
       var wingFindMessage = filteredWingFindMessages.find(obj => obj.MESSAGE == message);
       if(wingFindMessage) {
@@ -33,9 +33,8 @@ function onReactionRemove(client, reaction, user) {
         } else if(!validated) { // Checks user is validated
           user.send("You do not have permission to do that.");
         } else {
-          wingFindMessage.EMOJIS.splice(wingFindMessage.EMOJIS.indexOf(emoji.name), 1);
-          var wingFindStr = generateFindWingMessage(user, wingFindMessage.EMOJIS);
-          wingFindMessage.MESSAGE.edit(wingFindStr);
+          wingFindMessage.EMOJIS.splice(wingFindMessage.EMOJIS.indexOf(emoji.id), 1);
+          wingFindMessage.update();
         }
       }
     }

@@ -8,7 +8,8 @@ const wingTimeout = config.discord.timeouts.wing;
 const GuildData = require("../../models/guild_data.js");
 
 class Wing {
-  constructor(channel, user, guild, activities) {
+  constructor(client, channel, user, guild, activities) {
+    this.CLIENT = client;
     this.ID = generateWingID();
     this.PREFIX = "**[" + this.ID + "]** ";
     this.GUILD = guild;

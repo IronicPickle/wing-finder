@@ -9,11 +9,13 @@ const wingMsgEmojisArr = vars.wingMsgEmojisArr;
 const wingMsgEmojisObj = vars.wingMsgEmojisObj;
 const config = require("../../config/global.json");
 const wingFindTimeout = config.discord.timeouts.wingFind;
+const emojiSourceID = config.discord.emojis.sourceID;
 // DB models
 const GuildData = require("../../models/guild_data.js");
 
 class WingFindMessage {
-  constructor(user, channel, guild, override) {
+  constructor(client, user, channel, guild, override) {
+    this.CLIENT = client;
     this.GUILD = guild;
     this.USER = user;
     this.CHANNEL = channel;
@@ -29,13 +31,20 @@ class WingFindMessage {
   create() {
     var user = this.USER;
     var channel = this.CHANNEL;
-    var wingFindStr = generateFindWingMessage(user, []);
+    var sourceGuild = this.CLIENT.guilds.get(emojiSourceID);
+    if(!sourceGuild) return;
+    var wingFindStr = generateFindWingMessage(this.CLIENT, user, []);
+
     channel.send(wingFindStr).then(message => {
       this.MESSAGE = message;
       message.react("✅").then(() => {
         for(var i in wingMsgEmojisArr) {
-          var emoji = wingMsgEmojisArr[i];
-          message.react(emoji).catch(() => {});
+          var emoji = sourceGuild.emojis.get(wingMsgEmojisArr[i]);
+          if(!emoji) {
+            throw new Error("No emoji found");
+          } else {
+            message.react(emoji).catch(() => {});
+          }
         }
       })
     }).catch(err => {
@@ -44,10 +53,13 @@ class WingFindMessage {
     });
   }
   update() {
-    var wingFindStr = generateFindWingMessage([]);
+    var user = this.USER;
+    var wingFindStr = generateFindWingMessage(this.CLIENT, user, this.EMOJIS);
+
     this.MESSAGE.edit(wingFindStr);
   }
   close() {
+    var client = this.CLIENT;
     var guild = this.GUILD;
     var user = this.USER;
     var channel = this.CHANNEL;
@@ -67,9 +79,9 @@ class WingFindMessage {
           var selected = wingMsgEmojisObj.filter(obj => emojis.includes(obj.emoji));
           if(override) {
             removeFromCurrWing(user, guild);
-            new Wing(channel, user, guild, selected);
+            new Wing(client, channel, user, guild, selected);
           } else {
-            matchUser(channel, user, guild, selected);
+            matchUser(client, channel, user, guild, selected);
           }
         }
       }).catch(err => {

@@ -50,7 +50,7 @@ function onReactionAdd(client, reaction, user) {
           }
         }
       }
-    } if(wingMsgEmojisArr.includes(emoji.name) || emoji.name == "✅") {
+    } if(wingMsgEmojisArr.includes(emoji.id) || emoji.name == "✅") {
       // Checks message is relevant
       var wingFindMessage = filteredWingFindMessages.find(obj => obj.MESSAGE == message);
       if(wingFindMessage) {
@@ -64,9 +64,8 @@ function onReactionAdd(client, reaction, user) {
           if(emoji.name == "✅") { // Emoji check
             wingFindMessage.close();
           } else {
-            wingFindMessage.EMOJIS.push(emoji.name);
-            var wingFindStr = generateFindWingMessage(user, wingFindMessage.EMOJIS);
-            wingFindMessage.MESSAGE.edit(wingFindStr);
+            wingFindMessage.EMOJIS.push(emoji.id);
+            wingFindMessage.update();
           }
         }
       }
