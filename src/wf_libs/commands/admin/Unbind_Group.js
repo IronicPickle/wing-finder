@@ -14,7 +14,7 @@ class UnbindGroup {
     this.HELP = "Unbinds a group from a permission set.";
     this.IS_SUB = false;
     this.REQUIRED_GROUP = "admin";
-    this.RESTRICT_CHANNEL = true;
+    this.RESTRICT_CHANNEL = false;
     if(args.length != 2) {
       this.INVALID_USAGE = true;
     }
