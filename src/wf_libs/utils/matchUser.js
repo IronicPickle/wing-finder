@@ -2,7 +2,7 @@
 const removeFromCurrWing = require("../utils/removeFromCurrWing.js");
 const Wing = require("../objects/Wing.js");
 
-function matchUser(channel, user, guild, selected) {
+function matchUser(client, channel, user, guild, selected) {
   var filteredWings = wings.filter(obj => obj.GUILD == guild);
   var matchingWings = matchWings(filteredWings, selected, user);
   var bestMatchWing = bestMatch(matchingWings);
@@ -18,7 +18,7 @@ function matchUser(channel, user, guild, selected) {
     }
   } else {
     channel.send("<@" + user.id + ">, We couldn't find a wing for you, so we created one instead.");
-    new Wing(channel, user, guild, selected);
+    new Wing(client, channel, user, guild, selected);
   }
 
 }

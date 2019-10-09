@@ -3,8 +3,12 @@ const vars = require("../vars.js");
 const wingMsgEmojisObj = vars.wingMsgEmojisObj;
 const config = require("../../config/global.json");
 const wingFindTimeout = config.discord.timeouts.wingFind;
+const emojiSourceID = config.discord.emojis.sourceID;
 
-function generateFindWingMessage(user, emojis) {
+function generateFindWingMessage(client, user, emojis) {
+  var sourceGuild = client.guilds.get(emojiSourceID);
+  if(!sourceGuild) return;
+
   var wingFindStr = "<@" + user.id + ">\n__**Choose Activities**__";
 
   wingFindStr += "\nReact with any of the following emojis."
@@ -14,15 +18,19 @@ function generateFindWingMessage(user, emojis) {
   wingFindStr += "\n\n__**Activities**__\n"
   for(var i in wingMsgEmojisObj) {
     var activity = wingMsgEmojisObj[i].activity;
-    var emoji = wingMsgEmojisObj[i].emoji
-    if(emojis.includes(emoji)) {
-      wingFindStr += "**" + activity + "** (" + emoji + ")";
-      if((wingMsgEmojisObj.length - 1) != i) wingFindStr += " | ";
+    var emoji = sourceGuild.emojis.get(wingMsgEmojisObj[i].emoji);
+    if(!emoji) {
+      throw new Error("No emoji found");
     } else {
-      wingFindStr += activity + " (" + emoji + ")";
-      if((wingMsgEmojisObj.length - 1) != i) wingFindStr += " | ";
+      if(emojis.includes(emoji.id)) {
+        wingFindStr += "**" + activity + "** (" + emoji + ")";
+        if((wingMsgEmojisObj.length - 1) != i) wingFindStr += " | ";
+      } else {
+        wingFindStr += activity + " (" + emoji + ")";
+        if((wingMsgEmojisObj.length - 1) != i) wingFindStr += " | ";
+      }
+      if((parseInt(i) + 1) % 4 == 0) wingFindStr += "\n";
     }
-    if((parseInt(i) + 1) % 4 == 0) wingFindStr += "\n";
   }
 
   wingFindStr += "\n\nReact with this when you're done - ✅"

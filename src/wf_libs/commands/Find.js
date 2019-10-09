@@ -15,7 +15,7 @@ class Create {
     this.RESTRICT_CHANNEL = true;
     if(args.length > 0) this.INVALID_USAGE = true;
   }
-  exec(msg) {
+  exec(msg, client) {
     var channel = msg.channel;
     var user = msg.author;
     var guild = msg.guild;
@@ -27,7 +27,7 @@ class Create {
         msg.reply("You're already finding a wing.");
       }
     } else {
-      new WingFindMessage(user, channel, guild, false);
+      new WingFindMessage(client, user, channel, guild, false);
     }
   }
 }
