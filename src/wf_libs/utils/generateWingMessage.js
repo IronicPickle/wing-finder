@@ -1,4 +1,6 @@
 // Vars
+const vars = require("../vars.js");
+const wingIconArr = vars.wingIconArr;
 const config = require("../../config/global.json");
 const wingTimeout = config.discord.timeouts.wing;
 const emojiSourceID = config.discord.emojis.sourceID;
@@ -26,7 +28,7 @@ function generateWingMessage(wing) {
   }
   wingStr += "\n> Members:\n";
   for(var i in wing.MEMBERS) {
-    wingStr += "> <@" + wing.MEMBERS[i].id + ">\n";
+    wingStr += "> " + sourceGuild.emojis.get(wingIconArr[i]) + " <@" + wing.MEMBERS[i].id + ">\n";
   }
   wingStr += "> \n> React with ✅ to join this wing.\n";
   wingStr += "> React with ❌ to leave this wing.";
