@@ -14,11 +14,11 @@ class List {
     this.RESTRICT_CHANNEL = true;
     if(args.length > 0) this.INVALID_USAGE = true;
   }
-  exec(msg) {
+  exec(msg, client) {
     var guild = msg.guild;
     var channel = msg.channel;
 
-    printWings(channel, guild);
+    printWings(client, channel, guild);
   }
 }
 
