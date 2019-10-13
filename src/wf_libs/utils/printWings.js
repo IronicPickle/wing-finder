@@ -1,8 +1,12 @@
 // Vars
 const config = require("../../config/global.json");
 const prefix = config.discord.commands.prefix;
+const emojiSourceID = config.discord.emojis.sourceID;
 
-function printWings(channel, guild) {
+function printWings(client, channel, guild) {
+  var sourceGuild = client.guilds.get(emojiSourceID);
+  if(!sourceGuild) return;
+
   var filteredWings = wings.filter(obj => obj.GUILD == guild);
   var wingsStr = "**Available Wings:**\n";
   for(var i in filteredWings) {
@@ -18,7 +22,7 @@ function printWings(channel, guild) {
     var activities = wing.ACTIVITIES;
     for(var i in activities) {
       var activity = activities[i]
-      wingsStr += activity.activity + " (" + activity.emoji + ")";
+      wingsStr += activity.activity + " (" + sourceGuild.emojis.get(activity.emoji) + ")";
       if((activities.length - 1) != i) wingsStr += " | ";
     }
     wingsStr += "\n";
