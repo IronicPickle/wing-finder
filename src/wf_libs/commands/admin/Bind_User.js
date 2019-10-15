@@ -26,11 +26,17 @@ class BindUser {
     GuildData.findOne({guildID: guild.id}, "perms").exec().then(data => {
       if(!data) throw new Error("No data returned!");
       var perms = data.perms
+      var members = guild.members;
 
-      var filteredMentions = msg.mentions.users.filter(obj => !obj.bot);
-      var user = filteredMentions.first();
+      var mention = /<@!?(([0-9]){18})>/g.exec(args[0]);
+      console.log(mention)
+      if(!mention) {
+        msg.reply("Invalid user ID.");
+        return;
+      }
+      var member = members.find(arg => arg.id == mention[1]);
 
-      if(!user) {
+      if(!member) {
         msg.reply("Invalid user ID.");
         return;
       }
@@ -38,15 +44,15 @@ class BindUser {
         msg.reply("Invalid group.");
         return;
       }
-      if(perms[args[1]].users.includes(user.id)) {
-        msg.reply(user + " is already bound to '"+args[1].toUpperCase()+"'.");
+      if(perms[args[1]].users.includes(member.id)) {
+        msg.reply(member + " is already bound to '"+args[1].toUpperCase()+"'.");
         return;
       }
-      perms[args[1]].users.push(user.id);
+      perms[args[1]].users.push(member.id);
 
       GuildData.updateOne({guildID: guild.id}, {perms: perms}).exec().then(() => {
 
-        msg.reply("Bound " + user + " to permission set '"+args[1].toUpperCase()+"'.");
+        msg.reply("Bound " + member + " to permission set '"+args[1].toUpperCase()+"'.");
         printPerms(guild, channel);
 
       }).catch(err => {

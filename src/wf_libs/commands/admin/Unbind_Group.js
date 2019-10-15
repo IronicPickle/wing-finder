@@ -28,15 +28,15 @@ class UnbindGroup {
       var perms = data.perms
       var roles = guild.roles;
 
-      var mentions = msg.mentions.roles;
-      var role = mentions.first();
-
-      if(!role) {
+      var mention = /<@&(([0-9]){18})>/g.exec(args[0]);
+      if(!mention) {
         msg.reply("Invalid role ID.");
         return;
       }
-      if(!perms.hasOwnProperty(args[1])) {
-        msg.reply("Invalid group.");
+      var role = roles.find(arg => arg.id == mention[1]);
+
+      if(!role) {
+        msg.reply("Invalid role ID.");
         return;
       }
       if(!perms[args[1]].groups.includes(role.id)) {
