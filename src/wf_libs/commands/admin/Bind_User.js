@@ -29,7 +29,6 @@ class BindUser {
       var members = guild.members;
 
       var mention = /<@!?(([0-9]){18})>/g.exec(args[0]);
-      console.log(mention)
       if(!mention) {
         msg.reply("Invalid user ID.");
         return;

@@ -17,8 +17,7 @@ class Exterminate {
   }
   exec(msg) {
     var channel = msg.channel;
-    var filteredMentions = msg.mentions.users.filter(obj => !obj.bot);
-    var user = filteredMentions.first();
+    var user = msg.mentions.users.first();
 
     if(!user) {
       msg.reply("Invalid user ID.");
