@@ -10,7 +10,7 @@ class Create {
     this.USAGE = prefix + this.COMMAND;
     this.HELP = "Forcibly creates a new wing.";
     this.IS_SUB = false;
-    this.REQUIRED_GROUP = "officer";
+    this.REQUIRED_GROUP = "member";
     this.RESTRICT_CHANNEL = true;
     if(args.length > 0) this.INVALID_USAGE = true;
   }

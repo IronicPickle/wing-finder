@@ -12,7 +12,7 @@ class Admin {
     this.USAGE = prefix + this.COMMAND;
     this.HELP = "Returns the current permission configuration.";
     this.IS_SUB = false;
-    this.REQUIRED_GROUP = "admin";
+    this.REQUIRED_GROUP = "officer";
     this.RESTRICT_CHANNEL = false;
     if(args.length > 0) this.INVALID_USAGE = true;
   }
