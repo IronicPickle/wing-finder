@@ -26,11 +26,16 @@ class UnbindUser {
     GuildData.findOne({guildID: guild.id}, "perms").exec().then(data => {
       if(!data) throw new Error("No data returned!");
       var perms = data.perms
+      var members = guild.members;
 
-      var filteredMentions = msg.mentions.users.filter(obj => !obj.bot);
-      var user = filteredMentions.first();
+      var mention = /<@!?(([0-9]){18})>/g.exec(args[0]);
+      if(!mention) {
+        msg.reply("Invalid role ID.");
+        return;
+      }
+      var member = members.find(arg => arg.id == mention[1]);
 
-      if(!user) {
+      if(!member) {
         msg.reply("Invalid user ID.");
         return;
       }
@@ -38,16 +43,16 @@ class UnbindUser {
         msg.reply("Invalid group.");
         return;
       }
-      if(!perms[args[1]].users.includes(user.id)) {
-        msg.reply(user + " is not bound to '"+args[1].toUpperCase()+"'.");
+      if(!perms[args[1]].users.includes(member.id)) {
+        msg.reply(member + " is not bound to '"+args[1].toUpperCase()+"'.");
         return;
       }
-      var index = perms[args[1]].users.indexOf(user.id);
+      var index = perms[args[1]].users.indexOf(member.id);
       perms[args[1]].users.splice(index, 1);
 
       GuildData.updateOne({guildID: guild.id}, {perms: perms}).exec().then(() => {
 
-        msg.reply("Unbound " + user + " from permission set '"+args[1].toUpperCase()+"'.");
+        msg.reply("Unbound " + member + " from permission set '"+args[1].toUpperCase()+"'.");
         printPerms(guild, channel);
 
       }).catch(err => {
