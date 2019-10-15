@@ -15,9 +15,10 @@ class Exterminate {
     this.RESTRICT_CHANNEL = false;
     if(args.length != 1) this.INVALID_USAGE = true;
   }
-  exec(msg) {
+  exec(msg, client) {
     var channel = msg.channel;
-    var user = msg.mentions.users.first();
+    var filteredMentions = msg.mentions.users.filter(obj => obj.id != client.user.id);
+    var user = filteredMentions.first();
 
     if(!user) {
       msg.reply("Invalid user ID.");
