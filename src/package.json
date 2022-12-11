@@ -11,7 +11,7 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "discord.js": "^11.5.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.7.5",
     "unique-names-generator": "^3.0.0"
   }
